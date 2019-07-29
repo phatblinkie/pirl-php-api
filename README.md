@@ -12,15 +12,27 @@ this would also work for nearly any ethash based coin, just change the port to t
 How to run this version?
 install php-cli and php-curl if needed. you can then run it with command line client using wallet argument.
 
-$php index.php --wallet=yourwalletaddresshere [--chain=Pirl, Ethereum] [--CMD=getBalance, blockNumber, help]
+$php index.php --wallet=yourwalletaddresshere [--chain=Pirl, Ethereum, local] [--CMD=net_version, getBalance, blockNumber, peerCount, help]
 
-This version Default on the Pirl(https://wallrpc.pirl.io:443) but Cloudflare's Ethereum Gateway(https://cloudflare-eth.com:443) can be used using --chain=[Pirl, Ethereum, localhost] optional parameter.
+You can also run the test-api.sh like this.
+  
+  /bin/sh test-api.sh;
+  
+or 
+
+  chmod +x test-api.sh;
+  
+  ./test-api.sh;
+
+This version Default on the Pirl(https://wallrpc.pirl.io:443) but Cloudflare's Ethereum Gateway(https://cloudflare-eth.com:443) or any other json-rpc server using --chain=[Pirl, Ethereum, local] optionals parameter.
 
 If you want to have it served by a webserver, put the files into the web root directory and try a url syntax like these: 
 
   http(s)://hostname/path/to/index.php?chain=Pirl&CMD=blockNumber
 
   http(s)://hostname/path/to/index.php?wallet=youraddresshere
+  
+  http(s)://hostname/path/to/index.php?wallet=youraddresshere&chain=local&rpchost=localhost&rpcport=6588
   
   http(s)://hostname/path/to/index.php?CMD=help  
 
