@@ -23,11 +23,13 @@ foreach( $argv as $argument ) {
 if ($argc > 0) {$NL = "\n";} else {$NL = "</br>";}
 
 //if requested, setup variables
+$ID = $_REQUEST['id'];
 $addr = $_REQUEST['wallet'];
 $CMD = $_REQUEST['CMD'];
 $CHAIN = $_REQUEST['chain'];
 $RPCHOST = $_REQUEST['rpchost'];
 $RPCPORT = $_REQUEST['rpcport'];
+$BLOCK = $_REQUEST['block'];
 
 // If Required uncomment/force some parameters here
 //$addr = "yourwallethere";
@@ -39,7 +41,7 @@ $RPCPORT = $_REQUEST['rpcport'];
 
 //pass some simple sanity checks
 if (!$CMD){ $CMD = "getBalance";}
-
+if (!$ID){ $ID = 1;}
 //include ethereum-php library, select chain and create object
 require 'ethereum-php/ethereum.php';
 
@@ -68,6 +70,19 @@ default:
 
 switch($CMD)
 	{
+	case "web3_clientVersion":
+        // web3_clientVersion
+        $res = $ethc->web3_clientVersion();
+        $web3_clientVersion = $res;
+        //setup array for json encoding
+        $assocArray = array();
+        $assocArray['jsonrpc'] = '2.0';
+        $assocArray['id'] = intval($ID);
+        $assocArray['result'] = ''.$web3_clientVersion.'';
+        //encode in json format
+        $jsondata = json_encode($assocArray);
+        break;
+		
 	case "net_version":
         // net_version
         $res = $ethc->net_version();
@@ -75,7 +90,7 @@ switch($CMD)
         //setup array for json encoding
         $assocArray = array();
         $assocArray['jsonrpc'] = '2.0';
-        $assocArray['id'] = '1';
+        $assocArray['id'] = intval($ID);
         $assocArray['result'] = ''.$netversion.'';
         //encode in json format
         $jsondata = json_encode($assocArray);
@@ -88,12 +103,13 @@ switch($CMD)
 	//setup array for json encoding
 	$assocArray = array();
 	$assocArray['jsonrpc'] = '2.0';
-	$assocArray['id'] = '1';
-	$assocArray['result'] = ''.hexdec($res).'';
+	$assocArray['id'] = intval($ID);
+	$assocArray['result'] = $res;
 	//encode in json format
 	$jsondata = json_encode($assocArray);
 	break;
-	
+		
+		
 	case "peerCount":
         // net_peerCount
         $res = $ethc->net_peerCount();
@@ -101,7 +117,7 @@ switch($CMD)
         //setup array for json encoding
         $assocArray = array();
         $assocArray['jsonrpc'] = '2.0';
-        $assocArray['id'] = '1';
+        $assocArray['id'] = intval($ID);
         $assocArray['result'] = ''.hexdec($res).'';
         //encode in json format
         $jsondata = json_encode($assocArray);

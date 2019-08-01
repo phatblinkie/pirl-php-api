@@ -12,7 +12,7 @@ this would also work for nearly any ethash based coin, just change the port to t
 How to run this version?
 install php-cli and php-curl if needed. you can then run it with command line client using wallet argument.
 
-$php index.php --wallet=yourwalletaddresshere [--chain=Pirl, Ethereum, local] [--CMD=net_version, getBalance, blockNumber, peerCount, help]
+$php index.php --wallet=yourwalletaddresshere [--chain=Pirl, Ethereum, local] [--CMD=web3_clientVersion, net_version, getBalance, blockNumber, peerCount, help] [--id=integer]
 
 You can also run the test-api.sh like this.
   
@@ -24,9 +24,9 @@ or
   
   ./test-api.sh;
 
-This version Default on the Pirl(https://wallrpc.pirl.io:443) but Cloudflare's Ethereum Gateway(https://cloudflare-eth.com:443) or any other json-rpc server using --chain=[Pirl, Ethereum, local] optionals parameter.
+This version Default on the Pirl(https://wallrpc.pirl.io:443) but Cloudflare's Ethereum Gateway(https://cloudflare-eth.com:443) or any other json-rpc server using --chain=[Pirl, Ethereum, local] optional parameter.
 
-If you want to have it served by a webserver, put the files into the web root directory and try a url syntax like these: 
+If you want to have it served by a webserver, put the files into the webroot directory and try a url syntax like these: 
 
   http(s)://hostname/path/to/index.php?chain=Pirl&CMD=blockNumber
 
@@ -38,4 +38,4 @@ If you want to have it served by a webserver, put the files into the web root di
 
 Feel free to add pull requests or fork it for your own usage.
 
-The library under the hood has been forked @PhatBlinkie (https://github.com/phatblinkie/pirl-php-api), Thanks.
+While the library and some code under the hood has been forked @PhatBlinkie (https://github.com/phatblinkie/pirl-php-api), but the library seem to be from Brandon Telle(2015). Thanks.
